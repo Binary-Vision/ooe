@@ -25,6 +25,14 @@ struct WIN
     struct COORD	window_coord;	// Window position
 };
 
+/*
+* Create an empty window
+*/
 struct WIN empty_win();
+
+/*
+* Create a window with values
+*/
+struct WIN create_win(int, int, int, int, int, int);
 
 #endif

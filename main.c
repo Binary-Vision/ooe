@@ -13,9 +13,6 @@
 
 int main()
 {
-    Vbuf vbuf = vbuf_init();
-    vbuf_append(&vbuf, "hello", 5);
-    printf("%s\r\n%d\r\n%d\r\n", vbuf.data, vbuf.size, vbuf.cap);
-    vbuf_free(&vbuf);
+    printf("hello world\r\n");
     return 0;
 }
