@@ -25,6 +25,15 @@ struct WIN
     struct COORD	window_coord;	// Window position
 };
 
+struct WINS
+{
+    struct WIN*		wins;           // Windows
+    size_t              wins_size;      // Amount of screen windows
+    size_t              wins_cap;       // Capacity of windows
+};
+
+/*** Win Routines ***/
+
 /*
 * Create an empty window
 */
@@ -34,5 +43,21 @@ struct WIN empty_win();
 * Create a window with values
 */
 struct WIN create_win(int, int, int, int, int, int);
+
+/*** Wins Routines ***/
+/*
+* Initialize a Wins instance
+*/
+struct WINS wins_init();
+
+/*
+* Append an empty Win to Wins
+*/
+void wins_append_empty_win(struct WINS*);
+
+/*
+* Free Wins
+*/
+void wins_free(Wins* wins);
 
 #endif

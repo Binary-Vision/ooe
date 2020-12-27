@@ -17,10 +17,13 @@
 
 struct SCRN
 {
-    struct WIN*		wins		// Amount of screen windows
-    size_t		wins_size;	// Amount of screen windows
+    struct WINS		wins;		// Screen windows
     struct WIN_WS	scrn_ws;	// Screen size
     struct COORD	cursor_coord;	// Screen cursor position
 };
+/*
+* Create an empty screen
+*/
+struct SCRN scrn_empty();
 
 #endif
