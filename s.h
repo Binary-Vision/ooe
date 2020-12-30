@@ -21,9 +21,20 @@ struct SCRN
     struct WIN_WS	scrn_ws;	// Screen size
     struct COORD	cursor_coord;	// Screen cursor position
 };
+
 /*
 * Create an empty screen
 */
 struct SCRN scrn_empty();
+
+/*
+* Free a screen
+*/
+void scrn_free(struct SCRN*);
+
+/*
+* Update scrn
+*/
+void scrn_update(struct SCRN*);
 
 #endif

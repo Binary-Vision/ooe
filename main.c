@@ -22,18 +22,19 @@ int roundt(float f)
 
 int main()
 {
-    Wins wins = wins_init();
-    wins_append_empty_win(&wins);
-    wins_append_empty_win(&wins);
+    terminal_enable_raw_mode();
+    Scrn scrn = scrn_empty();
+    terminal_get_window_size(&scrn.scrn_ws.ws_row, &scrn.scrn_ws.ws_col);
 
-    wins.wins[0].ws.ws_row = 20;
-    wins.wins[0].ws.ws_col = 20;
+    wins_append_empty_win(&scrn.wins);
+    scrn.wins.wins[0].window_coord.y = 20;
+    scrn.wins.wins[0].window_coord.x = 0;
+    scrn.wins.wins[0].ws.ws_col = scrn.scrn_ws.ws_col / 2;;
+    
+    scrn_update(&scrn);
+    sleep(3);
 
-    wins.wins[0].ws.ws_row = 20;
-    wins.wins[0].ws.ws_col = 20;
+    scrn_free(&scrn);
 
-    printf("%ld;%ld;%d;%d\r\n", wins.wins_cap, wins.wins_size, wins.wins[0].ws.ws_row, wins.wins[0].ws.ws_col);
-
-    wins_free(&wins);
     return 0;
 }

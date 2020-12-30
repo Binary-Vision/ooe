@@ -1,6 +1,6 @@
 CC = gcc
 CC_FILES = *.c
-CC_FLAGS = -Wall -Wextra -pedantic -std=c99 -fsanitize=address
+CC_FLAGS = -Wall -Wextra -pedantic -std=c99 -fsanitize=address -g
 
 EXEC = ooe
 

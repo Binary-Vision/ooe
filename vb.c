@@ -26,7 +26,6 @@ static void vbuf_Realloc(Vbuf* vbuf_ptr, size_t new_Capacity)
 
     vbuf_ptr->data = data;
     vbuf_ptr->cap = new_Capacity;
-    free(data);
 }
 
 void vbuf_append(Vbuf* vbuf_ptr, const char* data, const size_t data_size)
