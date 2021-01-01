@@ -18,4 +18,9 @@ struct COORD
     int y;
 };
 
+/*
+* Simple 1dp rounding function
+*/
+int round_whole(const float);
+
 #endif
