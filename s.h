@@ -33,6 +33,11 @@ struct SCRN scrn_empty();
 void scrn_free(struct SCRN*);
 
 /*
+* Clean screen atexit
+*/
+void scrn_clean();
+
+/*
 * Update scrn
 */
 void scrn_update(struct SCRN*);
