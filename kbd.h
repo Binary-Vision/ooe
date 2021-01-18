@@ -10,6 +10,8 @@
 #ifndef _OOE_KBD_H_
 #define _OOE_KBD_H_
 
+#include "s.h"
+
 enum editorKeys
 {
     KEY_BACKSPACE = 0x7F,
@@ -26,8 +28,13 @@ enum editorKeys
 };
 
 /*
+* Move the screen cursor
+*/
+void scrn_move_cursor(struct SCRN*, int);
+
+/*
 * Process kbd pressed keys relative to editor
 */
-void editor_kbd_proc_key();
+void editor_kbd_proc_key(struct SCRN*);
 
 #endif

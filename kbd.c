@@ -1,5 +1,8 @@
 #include "kbd.h"
 
+#undef _OOE_SCRN_H_
+#include "types.h"
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
@@ -52,7 +55,30 @@ static int kbd_read_key() {
   }
 }
 
-void editor_kbd_proc_key()
+void scrn_move_cursor(Scrn* scrn_ptr, int key)
+{
+    switch (key)
+    {
+    case ARROW_UP:
+        if (scrn_ptr->cursor_coord.y != 0)
+            scrn_ptr->cursor_coord.y--;
+        break;
+    case ARROW_DOWN:
+        if (scrn_ptr->cursor_coord.y != scrn_ptr->scrn_ws.ws_row - 1)
+            scrn_ptr->cursor_coord.y++;
+        break;
+    case ARROW_LEFT:
+        if (scrn_ptr->cursor_coord.x != 0)
+            scrn_ptr->cursor_coord.x--;
+        break;
+    case ARROW_RIGHT:
+        if (scrn_ptr->cursor_coord.x != scrn_ptr->scrn_ws.ws_col - 1)
+            scrn_ptr->cursor_coord.x++;
+        break;
+    }
+}
+
+void editor_kbd_proc_key(Scrn* scrn_ptr)
 {
     int key = kbd_read_key();
 
@@ -60,5 +86,10 @@ void editor_kbd_proc_key()
     {
     case CTRL_KEY('Q'):
         exit(0);
+    case ARROW_UP:
+    case ARROW_DOWN:
+    case ARROW_LEFT:
+    case ARROW_RIGHT:
+        scrn_move_cursor(scrn_ptr, key);
     }
 }

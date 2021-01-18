@@ -15,6 +15,8 @@
 #include "kbd.h"
 #include "defs.h"
 
+#include <signal.h>
+
 Scrn* scrn_clean_ptr = NULL;
 
 void scrn_clean_exit()
@@ -27,27 +29,18 @@ int main()
 {
     terminal_enable_raw_mode();
     Scrn scrn = scrn_empty();
+    scrn_clean_ptr = &scrn;
     atexit(scrn_clean_exit);
 
     terminal_get_window_size(&scrn.scrn_ws.ws_row, &scrn.scrn_ws.ws_col);
 
-    wins_append_empty_win(&scrn.wins);
-    wins_append_empty_win(&scrn.wins);
-
-    scrn.wins.wins[0].window_coord.y = 0;
-    scrn.wins.wins[0].window_coord.x = 0;
-    scrn.wins.wins[0].ws.ws_col = scrn.scrn_ws.ws_col / 2;
-
-    scrn.wins.wins[1].window_coord.y = 0;
-    scrn.wins.wins[1].window_coord.x = (scrn.scrn_ws.ws_col / 2);
-    scrn.wins.wins[1].ws.ws_col = round_whole((float)scrn.scrn_ws.ws_col / 2.0f);
-
-//    printf("%d;%d;%d\r\n", scrn.scrn_ws.ws_col, scrn.wins.wins[0].ws.ws_col, scrn.wins.wins[1].ws.ws_col);
+    wins_append_win(&scrn.wins, scrn.scrn_ws.ws_row, scrn.scrn_ws.ws_col / 2, 0, 0, 0, 0);
+    wins_append_win(&scrn.wins, scrn.scrn_ws.ws_row, round_whole((float)scrn.scrn_ws.ws_col / 2), 0, (int)(scrn.scrn_ws.ws_col / 2), 0, 0);
 
     while (1)
     {
         scrn_update(&scrn);
-        editor_kbd_proc_key();
+        editor_kbd_proc_key(&scrn);
     }    
 
     return 0;
