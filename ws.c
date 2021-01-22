@@ -8,3 +8,8 @@
  */
 
 #include "types.h"
+
+void retWin_scrnCursor(const Wins* restrict const wins, const Coord* restrict const cursor_coord_ptr)
+{
+
+}

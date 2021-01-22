@@ -11,5 +11,24 @@
 #define _OOe_WS_H_
 
 #include "w.h"
+#include "defs.h"
+
+// get window surface and split the window
+void retWin_scrnCursor(const struct WINS* restrict const, const struct COORD* restrict const);
+
+/*
+* Return pointer to window based on screen cursor position
+*/
+struct WIN* scrn_cursor_returnWindow();
+
+/*
+* Split the window vertically
+*/
+void wsplt_vertical();
+
+/*
+* Split the window horizontally
+*/
+void wsplt_horizontal();
 
 #endif

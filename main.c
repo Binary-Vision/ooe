@@ -17,6 +17,10 @@
 
 #include <signal.h>
 
+#include <sys/socket.h>
+#include <unistd.h>
+#include <netinet/in.h>
+
 Scrn* scrn_clean_ptr = NULL;
 
 void scrn_clean_exit()
@@ -41,7 +45,7 @@ int main()
     {
         scrn_update(&scrn);
         editor_kbd_proc_key(&scrn);
-    }    
+    }
 
     return 0;
 }
