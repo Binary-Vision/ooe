@@ -1,11 +1,14 @@
 #include "kbd.h"
 
 #undef _OOE_SCRN_H_
+
 #include "types.h"
+#include "tty.h"
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
+#include <stdio.h>
 
 #define CTRL_KEY(k)	((k) & 0x1F)
 
@@ -81,11 +84,19 @@ void scrn_move_cursor(Scrn* scrn_ptr, int key)
 void editor_kbd_proc_key(Scrn* scrn_ptr)
 {
     int key = kbd_read_key();
+    int x = 0, y = 0;
+    char buf[20];	int size;
 
     switch (key)
     {
     case CTRL_KEY('Q'):
         exit(0);
+    case CTRL_KEY('O'):
+        terminal_get_cursor_position(&y, &x);
+        size = snprintf(buf, sizeof(buf), "\x1b[2;2H%d;%d", y, x);
+        write(STDOUT_FILENO, buf, size);
+        break;
+
     case ARROW_UP:
     case ARROW_DOWN:
     case ARROW_LEFT:

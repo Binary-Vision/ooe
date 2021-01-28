@@ -8,6 +8,7 @@
  */
 
 #include "types.h"
+#include "tty.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -82,7 +83,7 @@ void scrn_update(Scrn* scrn_ptr)
 
     // Position screen cursor
     char cursor_position_buf[10];
-    const int size = snprintf(cursor_position_buf, sizeof(cursor_position_buf), "\x1b[%d;%dH",
+    int size = snprintf(cursor_position_buf, sizeof(cursor_position_buf), "\x1b[%d;%dH",
                                             scrn_ptr->cursor_coord.y + 1,
                                             scrn_ptr->cursor_coord.x + 1);
     vbuf_append(&vbuf, cursor_position_buf, size);
