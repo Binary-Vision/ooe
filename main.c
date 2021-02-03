@@ -38,7 +38,7 @@ int main()
 
     terminal_get_window_size(&scrn.scrn_ws.ws_row, &scrn.scrn_ws.ws_col);
 
-    wins_append_win(&scrn.wins, scrn.scrn_ws.ws_row, scrn.scrn_ws.ws_col / 2, 0, 0, 0, 0);
+a    wins_append_win(&scrn.wins, scrn.scrn_ws.ws_row, scrn.scrn_ws.ws_col / 2, 0, 0, 0, 0);
     wins_append_win(&scrn.wins, scrn.scrn_ws.ws_row, round_whole((float)scrn.scrn_ws.ws_col / 2), 0, (int)(scrn.scrn_ws.ws_col / 2), 0, 0);
 
     while (1)
