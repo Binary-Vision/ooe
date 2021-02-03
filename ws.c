@@ -9,13 +9,15 @@
 
 #include "types.h"
 
-Win* retWin_scrnCursor(const Wins* restrict const wins_ptr, const Coord* restrict const cursor_coord_ptr)
+int retWin_scrnCursor(Wins* wins_ptr, const int cursor_y, const int cursor_x)
 {
-    Win* winIndex;
+    int winIndex;
 
     for (size_t i = 0; i < wins_ptr->wins_size; i++)
     {
         // Bounds Checking   
+        if (cursor_x >= wins_ptr->wins[i].window_coord.x + 1 && cursor_x <= wins_ptr->wins[i].window_coord.x + wins_ptr->wins[i].ws.ws_col)
+            winIndex = i;
     }
 
     return winIndex;

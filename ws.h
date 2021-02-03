@@ -14,7 +14,7 @@
 #include "defs.h"
 
 // get window surface and split the window
-Win* retWin_scrnCursor(const struct WINS* restrict const, const struct COORD* restrict const);
+int retWin_scrnCursor(struct WINS*, const int, const int);
 
 /*
 * Return pointer to window based on screen cursor position
