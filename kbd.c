@@ -105,7 +105,7 @@ void editor_kbd_proc_key(Scrn* scrn_ptr)
                                             scrn_ptr->wins.wins[1].ws.ws_col,
                                             scrn_ptr->wins.wins[1].ws.ws_row);
         write(STDOUT_FILENO, buf, size);
-        int winIndex = retWin_scrnCursor(&scrn_ptr->wins, y, x);
+        int winIndex = retIWin_scrnCursor(&scrn_ptr->wins, y, x);
         size = snprintf(buf, sizeof(buf), "\x1b[12;2HIndex: %d\x1b[K", winIndex);
         write(STDOUT_FILENO, buf, size);
         break;

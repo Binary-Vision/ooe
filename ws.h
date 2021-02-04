@@ -14,10 +14,10 @@
 #include "defs.h"
 
 // get window surface and split the window
-int retWin_scrnCursor(struct WINS*, const int, const int);
+int retIWin_scrnCursor(struct WINS*, const int, const int);
 
 /*
-* Return pointer to window based on screen cursor position
+* Return omdex to window based on screen cursor position
 */
 struct WIN* scrn_cursor_returnWindow();
 

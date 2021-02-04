@@ -61,7 +61,6 @@ static void wins_Realloc(Wins* wins_ptr, size_t new_Capacity)
 
     wins_ptr->wins = wins;
     wins_ptr->wins_cap = new_Capacity;
-    free(wins);
 }
 
 void wins_append_empty_win(Wins* wins_ptr)
