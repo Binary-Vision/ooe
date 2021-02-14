@@ -13,13 +13,9 @@
 #include "types.h"
 #include "tty.h"
 #include "kbd.h"
-#include "defs.h"
+//#include "defs.h"
 
 #include <signal.h>
-
-#include <sys/socket.h>
-#include <unistd.h>
-#include <netinet/in.h>
 
 Scrn* scrn_clean_ptr = NULL;
 
@@ -38,12 +34,10 @@ int main()
 
     terminal_get_window_size(&scrn.scrn_ws.ws_row, &scrn.scrn_ws.ws_col);
 
-    wins_append_win(&scrn.wins, scrn.scrn_ws.ws_row / 2, scrn.scrn_ws.ws_col / 2, 0, 0, 0, 0);
-    wins_append_win(&scrn.wins, scrn.scrn_ws.ws_row / 2, round_whole((float)scrn.scrn_ws.ws_col / 2), 0, (int)(scrn.scrn_ws.ws_col / 2), 0, 0);
-
-
-    wins_append_win(&scrn.wins, scrn.scrn_ws.ws_row / 2, scrn.scrn_ws.ws_col / 2, scrn.scrn_ws.ws_row / 2, 0, 0, 0);
-    wins_append_win(&scrn.wins, round_whole((float)scrn.scrn_ws.ws_row / 2), round_whole((float)scrn.scrn_ws.ws_col / 2), (int)(scrn.scrn_ws.ws_row / 2), (int)(scrn.scrn_ws.ws_col / 2), 0, 0);
+    wins_append_win(&scrn.wins, scrn.scrn_ws.ws_row / 2, scrn.scrn_ws.ws_col / 2, 0, 0, 0, 0, HORIZONTAL_WINDOW);
+//    wins_append_win(&scrn.wins, scrn.scrn_ws.ws_row / 2, round_whole((float)scrn.scrn_ws.ws_col / 2), 0, (int)(scrn.scrn_ws.ws_col / 2), 0, 0, VERTICAL_WINDOW);
+//    wins_append_win(&scrn.wins, scrn.scrn_ws.ws_row / 2, scrn.scrn_ws.ws_col / 2, scrn.scrn_ws.ws_row / 2, 0, 0, 0, HORIZONTAL_WINDOW);
+//    wins_append_win(&scrn.wins, round_whole((float)scrn.scrn_ws.ws_row / 2), round_whole((float)scrn.scrn_ws.ws_col / 2), (int)(scrn.scrn_ws.ws_row / 2), (int)(scrn.scrn_ws.ws_col / 2), 0, 0, VERTICAL_WINDOW);
 
     while (1)
     {
