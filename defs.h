@@ -11,6 +11,9 @@
 
 #ifndef _OOE_DEFS_H_
 #define _OOE_DEFS_H_
+
+/*** Defines ***/
+#define UNASSIGNED	-20
  
 struct COORD
 {
