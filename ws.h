@@ -17,11 +17,6 @@
 int retIWin_scrnCursor(struct WINS*, const int, const int);
 
 /*
-* Return omdex to window based on screen cursor position
-*/
-struct WIN* scrn_cursor_returnWindow();
-
-/*
 * Split the window vertically
 */
 void wsplt_vertical();

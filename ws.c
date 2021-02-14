@@ -25,3 +25,13 @@ int retIWin_scrnCursor(Wins* wins_ptr, const int cursor_y, const int cursor_x)
 
     return winIndex;
 }
+
+void wsplit_vertical()
+{
+    // Get window width and halve it. Then insert a window after that windows position half of its surface width
+}
+
+void wsplit_horizontal()
+{
+
+}
