@@ -21,11 +21,12 @@ Win empty_win()
     win.ws.ws_row = win.ws.ws_col = 0;
     win.cursor_coord.x = win.cursor_coord.y = 0;
     win.window_coord.x = win.window_coord.y = 0;
+    win.split_type = UNASSIGNED;
 
     return win;
 }
 
-Win create_win(int height, int width, int row, int col, int cursor_y, int cursor_x)
+Win create_win(int height, int width, int row, int col, int cursor_y, int cursor_x, short split_type)
 {
     Win win;
 
@@ -35,6 +36,7 @@ Win create_win(int height, int width, int row, int col, int cursor_y, int cursor
     win.window_coord.x = col;
     win.cursor_coord.y = cursor_y;
     win.cursor_coord.x = cursor_x;
+    win.split_type = split_type;
 
     return win;
 }
@@ -71,10 +73,10 @@ void wins_append_empty_win(Wins* wins_ptr)
     wins_ptr->wins_size++;
 }
 
-void wins_append_win(Wins* wins_ptr, int height, int width, int row, int col, int cursor_y, int cursor_x)
+void wins_append_win(Wins* wins_ptr, int height, int width, int row, int col, int cursor_y, int cursor_x, short split_type)
 {
     wins_append_empty_win(wins_ptr);
-    wins_ptr->wins[wins_ptr->wins_size - 1] = create_win(height, width, row, col, cursor_y, cursor_x);
+    wins_ptr->wins[wins_ptr->wins_size - 1] = create_win(height, width, row, col, cursor_y, cursor_x, split_type);
 }
 
 void wins_free(Wins* wins)

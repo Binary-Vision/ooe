@@ -41,6 +41,11 @@ static void scrn_clear_lines(Scrn* scrn_ptr, Vbuf* vbuf_ptr)
         char buf[13];	int size = snprintf(buf, sizeof(buf), "\x1b[%d;%dH\x1b[K", scrn_ptr->scrn_ws.ws_row + 1, scrn_ptr->scrn_ws.ws_col + 1);
         vbuf_append(vbuf_ptr, buf, size);
     }
+/*    for (int y = 0; y <= scrn_ptr->scrn_ws.ws_row; y++)
+    {
+        char buf[13];	int size = snprintf(buf, sizeof(buf), "\x1b[%d;%dH\x1b[K", y + 1, scrn_ptr->scrn_ws.ws_col + 1);
+        vbuf_append(vbuf_ptr, buf, size);
+    }*/
 }
 
 static void scrn_draw_win(Win win, Vbuf* vbuf_ptr, bool vertical_bar)
@@ -58,7 +63,7 @@ static void scrn_draw_win(Win win, Vbuf* vbuf_ptr, bool vertical_bar)
     if (vertical_bar)
         for (int y = 1; y <= win.ws.ws_row; y++)
         {
-            char buf[10];	int size = snprintf(buf, sizeof(buf), "\x1b[%d;%dH", y + 1, win.window_coord.x + 1);
+            char buf[10];	int size = snprintf(buf, sizeof(buf), "\x1b[%d;%dH", win.window_coord.y + y + 1, win.window_coord.x + 1);
             vbuf_append(vbuf_ptr, buf, size);
             vbuf_append(vbuf_ptr, " ", 1);
         }

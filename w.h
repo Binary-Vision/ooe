@@ -15,9 +15,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#define VERTICAL_WINDOW		0
-#define HORIZONTAL_WINDOW	1
-#define VERTICAL_BAR_WINDOW	3
+#define HORIZONTAL_WINDOW	0
+#define VERTICAL_WINDOW		1
 
 struct WIN_WS
 {
@@ -31,7 +30,7 @@ struct WIN
     struct COORD	cursor_coord;	// Cursor position
     struct COORD	window_coord;	// Window position
 
-    int			split_type;	// Vertical or horizontal window
+    short			split_type;	// Vertical or horizontal window
 };
 
 struct WINS
@@ -51,7 +50,7 @@ struct WIN empty_win();
 /*
 * Create a window with values
 */
-struct WIN create_win(int, int, int, int, int, int);
+struct WIN create_win(int, int, int, int, int, int, short);
 
 /*** Wins Routines ***/
 /*
@@ -67,7 +66,7 @@ void wins_append_empty_win(struct WINS*);
 /*
 * Append a Win to Wins
 */
-void wins_append_win(struct WINS*, int, int, int, int, int, int);
+void wins_append_win(struct WINS*, int, int, int, int, int, int, short);
 
 /*
 * Free Wins
