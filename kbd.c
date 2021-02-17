@@ -4,7 +4,7 @@
 
 #include "types.h"
 #include "tty.h"
-//#include "ws.h"
+#include "ws.h"
 
 #include <stdlib.h>
 #include <unistd.h>

@@ -8,6 +8,7 @@
  */
 
 #include "types.h"
+#include "ws.h"
 
 int retIWin_scrnCursor(Wins* wins_ptr, const int cursor_y, const int cursor_x)
 {

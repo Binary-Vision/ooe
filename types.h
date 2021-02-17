@@ -20,7 +20,6 @@ typedef struct SCRN		Scrn;
 /*** Includes ***/
 #include "vb.h"
 #include "w.h"
-#include "ws.h"
 #include "defs.h"
 #include "s.h"
 
