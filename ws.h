@@ -19,11 +19,11 @@ int retIWin_scrnCursor(struct WINS*, const int, const int);
 /*
 * Split the window vertically
 */
-void wsplt_vertical();
+void wsplit_vertical();
 
 /*
 * Split the window horizontally
 */
-void wsplt_hz(struct WINS*, const int, const int);
+void wsplit_horizontal(struct WINS*, const int, const int);
 
 #endif

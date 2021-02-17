@@ -7,9 +7,14 @@
  *
  */
 
+#ifndef _OOE_ERR_H_
+#define _OOE_ERR_H_
+
 #include <stdio.h>
 
 void error(const char* error_msg)
 {
     perror(error_msg);
 }
+
+#endif

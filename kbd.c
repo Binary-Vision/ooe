@@ -1,15 +1,13 @@
 #include "kbd.h"
-
-#undef _OOE_SCRN_H_
-
 #include "types.h"
 #include "tty.h"
 #include "ws.h"
+#include "err.h"
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
-#include <stdio.h>
+//#include <stdio.h>
 
 #define CTRL_KEY(k)	((k) & 0x1F)
 
@@ -87,31 +85,16 @@ void editor_kbd_proc_key(Scrn* scrn_ptr)
     int key = kbd_read_key();
     int x = 0, y = 0;
     char buf[300];	int size;
+    int winIndex;
 
     switch (key)
     {
     case CTRL_KEY('Q'):
         exit(0);
     case CTRL_KEY('T'):
-        wsplt_hz(&scrn_ptr->wins, scrn_ptr->cursor_coord.x, scrn_ptr->cursor_coord.y);
-        break;
     case CTRL_KEY('O'):
-        terminal_get_cursor_position(&y, &x);
-        size = snprintf(buf, sizeof(buf), "\x1b[2;2HY %d;X %d    Scrn Y : %d;  Scrn X: %d\x1b[K", y, x, scrn_ptr->cursor_coord.y, scrn_ptr->cursor_coord.x);
-        write(STDOUT_FILENO, buf, size);
-        size = snprintf(buf, sizeof(buf), "\x1b[3;2HScreen Windows: %ld\x1b[K\x1b[4;2HWindow 1 x:%d \x1b[5;2Hwindow 1 y: %d\x1b[K\x1b[6;2HWindow 1 Width: %d\x1b[K\x1b[7;2HWindow 1 Height: %d\x1b[K\x1b[8;2Hwindow 2 x:%d \x1b[9;2Hwindow 2 y:%d\x1b[K\x1b[10;2HWindow 2 Width: %d\x1b[K\x1b[11;2HWindow 2 Height: %d\x1b[K", scrn_ptr->wins.wins_size,
-                                            scrn_ptr->wins.wins[0].window_coord.x + 1,
-                                            scrn_ptr->wins.wins[0].window_coord.y + 1,
-                                            scrn_ptr->wins.wins[0].ws.ws_col,
-                                            scrn_ptr->wins.wins[0].ws.ws_row,
-                                            scrn_ptr->wins.wins[1].window_coord.x + 1,
-                                            scrn_ptr->wins.wins[1].window_coord.y + 1,
-                                            scrn_ptr->wins.wins[1].ws.ws_col,
-                                            scrn_ptr->wins.wins[1].ws.ws_row);
-        write(STDOUT_FILENO, buf, size);
-        int winIndex = retIWin_scrnCursor(&scrn_ptr->wins, y, x);
-        size = snprintf(buf, sizeof(buf), "\x1b[12;2HIndex: %d\x1b[K", winIndex);
-        write(STDOUT_FILENO, buf, size);
+        if (terminal_get_cursor_position(&y, &x) == -1)
+            error("terminal_get_cursor_position");
         break;
 
     case ARROW_UP:

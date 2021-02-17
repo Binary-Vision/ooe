@@ -12,7 +12,7 @@
 
 int retIWin_scrnCursor(Wins* wins_ptr, const int cursor_y, const int cursor_x)
 {
-    int winIndex;
+/*    int winIndex;
 
     for (size_t i = 0; i < wins_ptr->wins_size; i++)
     {
@@ -24,6 +24,16 @@ int retIWin_scrnCursor(Wins* wins_ptr, const int cursor_y, const int cursor_x)
             winIndex = i;
     }
 
+    return winIndex;*/
+
+    int winIndex = wins_ptr->wins_size;
+
+    for (size_t i = 0; i < wins_ptr->wins_size; i++)
+    {
+        // Bounds Checking
+        if (cursor_x >= wins_ptr->wins[i].window_coord.x + 1 && cursor_x <= wins_ptr->wins[i].window_coord.x + wins_ptr->wins[i].ws.ws_col && cursor_y >= wins_ptr->wins[i].window_coord.y + 1 && cursor_y < wins_ptr->wins[i].window_coord.y + wins_ptr->wins[i].ws.ws_col)
+            winIndex = i;
+    }
     return winIndex;
 }
 
@@ -32,7 +42,7 @@ void wsplit_vertical()
     // Get window width and halve it. Then insert a window after that windows position half of its surface width
 }
 
-void wsplit_hz(Wins* wins_ptr, const int cursor_x, const int cursor_y)
+void wsplit_horizontal(Wins* wins_ptr, const int cursor_x, const int cursor_y)
 {
     // Get window index
     int winIndex = retIWin_scrnCursor(wins_ptr, cursor_x, cursor_y);
