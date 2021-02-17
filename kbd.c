@@ -83,9 +83,8 @@ void scrn_move_cursor(Scrn* scrn_ptr, int key)
 void editor_kbd_proc_key(Scrn* scrn_ptr)
 {
     int key = kbd_read_key();
-    int x = 0, y = 0;
     char buf[300];	int size;
-    int winIndex;
+    int y = 0, x = 0;	int winIndex;
 
     switch (key)
     {
@@ -95,6 +94,9 @@ void editor_kbd_proc_key(Scrn* scrn_ptr)
     case CTRL_KEY('O'):
         if (terminal_get_cursor_position(&y, &x) == -1)
             error("terminal_get_cursor_position");
+        winIndex = retIWin_scrnCursor(&scrn_ptr->wins, y, x);
+        size = snprintf(buf, sizeof(buf), "\x1b[2;1H%d", winIndex);
+        write(STDOUT_FILENO, buf, size);
         break;
 
     case ARROW_UP:
