@@ -4,6 +4,7 @@
 
 #include "types.h"
 #include "tty.h"
+//#include "ws.h"
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -91,6 +92,9 @@ void editor_kbd_proc_key(Scrn* scrn_ptr)
     {
     case CTRL_KEY('Q'):
         exit(0);
+    case CTRL_KEY('T'):
+        wsplt_hz(&scrn_ptr->wins, scrn_ptr->cursor_coord.x, scrn_ptr->cursor_coord.y);
+        break;
     case CTRL_KEY('O'):
         terminal_get_cursor_position(&y, &x);
         size = snprintf(buf, sizeof(buf), "\x1b[2;2HY %d;X %d    Scrn Y : %d;  Scrn X: %d\x1b[K", y, x, scrn_ptr->cursor_coord.y, scrn_ptr->cursor_coord.x);

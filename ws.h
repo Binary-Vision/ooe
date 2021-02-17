@@ -24,6 +24,6 @@ void wsplt_vertical();
 /*
 * Split the window horizontally
 */
-void wsplt_horizontal();
+void wsplt_hz(struct WINS*, const int, const int);
 
 #endif

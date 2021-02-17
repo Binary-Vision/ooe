@@ -31,7 +31,17 @@ void wsplit_vertical()
     // Get window width and halve it. Then insert a window after that windows position half of its surface width
 }
 
-void wsplit_horizontal()
+void wsplit_hz(Wins* wins_ptr, const int cursor_x, const int cursor_y)
 {
+    // Get window index
+    int winIndex = retIWin_scrnCursor(wins_ptr, cursor_x, cursor_y);
 
+    // Get window height, halve it and append a window at new positions.
+    Win win = create_win((int)round_whole((float)(wins_ptr->wins[winIndex].ws.ws_row / 2)), wins_ptr->wins[winIndex].ws.ws_col, wins_ptr->wins[winIndex].window_coord.y + (int)round_whole((float)(wins_ptr->wins[winIndex].window_coord.y / 2)), wins_ptr->wins[winIndex].window_coord.x, 0, 0, HORIZONTAL_WINDOW);
+
+    // Change winIndex width, height values
+    wins_ptr->wins[winIndex].ws.ws_row /= 2;
+
+    // Append new window to wins_ptr
+    wins_append_win(wins_ptr, win.ws.ws_row, win.ws.ws_col, win.window_coord.y, win.window_coord.x, win.cursor_coord.y, win.cursor_coord.x, win.split_type);
 }
