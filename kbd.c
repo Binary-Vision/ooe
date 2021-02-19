@@ -91,12 +91,16 @@ void editor_kbd_proc_key(Scrn* scrn_ptr)
     case CTRL_KEY('Q'):
         exit(0);
     case CTRL_KEY('T'):
-    case CTRL_KEY('O'):
         if (terminal_get_cursor_position(&y, &x) == -1)
             error("terminal_get_cursor_position");
         winIndex = retIWin_scrnCursor(&scrn_ptr->wins, y, x);
-        size = snprintf(buf, sizeof(buf), "\x1b[2;1H%d", winIndex);
+        size = snprintf(buf, sizeof(buf), "\x1b[2;1H%d\x1b[K\x1b[3;1H%d\x1b[K", winIndex, scrn_ptr->wins.wins[winIndex].ws.ws_row);
         write(STDOUT_FILENO, buf, size);
+        break;
+    case CTRL_KEY('O'):
+        if (terminal_get_cursor_position(&y, &x) == -1)
+            error("terminal_get_cursor_position");
+        wsplit_horizontal(&scrn_ptr->wins, y, x);
         break;
 
     case ARROW_UP:

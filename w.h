@@ -69,6 +69,11 @@ void wins_append_empty_win(struct WINS*);
 void wins_append_win(struct WINS*, int, int, int, int, int, int, short);
 
 /*
+* Append a struct WIN to WINS
+*/
+void wins_append_sWin(struct WINS*, struct WIN win);
+
+/*
 * Free Wins
 */
 void wins_free(struct WINS* wins);

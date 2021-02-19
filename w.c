@@ -79,10 +79,11 @@ void wins_append_win(Wins* wins_ptr, int height, int width, int row, int col, in
     wins_ptr->wins[wins_ptr->wins_size - 1] = create_win(height, width, row, col, cursor_y, cursor_x, split_type);
 }
 
-/*void wins_append_win(Win win)
+void wins_append_sWin(Wins* wins_ptr, Win win)
 {
-
-}*/
+    wins_append_empty_win(wins_ptr);
+    wins_ptr->wins[wins_ptr->wins_size - 1] = win;
+}
 
 void wins_free(Wins* wins)
 {
