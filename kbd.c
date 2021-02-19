@@ -94,11 +94,13 @@ void editor_kbd_proc_key(Scrn* scrn_ptr)
         if (terminal_get_cursor_position(&y, &x) == -1)
             error("terminal_get_cursor_position");
         winIndex = retIWin_scrnCursor(&scrn_ptr->wins, y, x);
-        size = snprintf(buf, sizeof(buf), "\x1b[2;1H%d\x1b[K\x1b[3;1H%d\x1b[K", winIndex, scrn_ptr->wins.wins[winIndex].ws.ws_row);
-        scrn_ptr->wins.wins[winIndex].ws.ws_row /= 2;
+        size = snprintf(buf, sizeof(buf), "\x1b[2;1H%d\x1b[K\x1b[3;1H%d Window Coord %d;%d\x1b[K", winIndex, scrn_ptr->wins.wins[winIndex].ws.ws_row, scrn_ptr->wins.wins[winIndex].window_coord.y, scrn_ptr->wins.wins[winIndex].window_coord.x);
         write(STDOUT_FILENO, buf, size);
         break;
     case CTRL_KEY('O'):
+        if (terminal_get_cursor_position(&y, &x) == -1)
+            error("terminal_get_cursor_position");
+        wsplit_horizontal(&scrn_ptr->wins, y, x);
         break;
 
     case ARROW_UP:
