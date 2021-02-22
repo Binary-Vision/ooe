@@ -41,34 +41,44 @@ static void scrn_clear_lines(Scrn* scrn_ptr, Vbuf* vbuf_ptr)
         char buf[13];	int size = snprintf(buf, sizeof(buf), "\x1b[%d;%dH\x1b[K", scrn_ptr->scrn_ws.ws_row + 1, scrn_ptr->scrn_ws.ws_col + 1);
         vbuf_append(vbuf_ptr, buf, size);
     }
-/*    for (int y = 0; y <= scrn_ptr->scrn_ws.ws_row; y++)
-    {
-        char buf[13];	int size = snprintf(buf, sizeof(buf), "\x1b[%d;%dH\x1b[K", y + 1, scrn_ptr->scrn_ws.ws_col + 1);
-        vbuf_append(vbuf_ptr, buf, size);
-    }*/
 }
 
-static void scrn_draw_win(Win win, Vbuf* vbuf_ptr, bool vertical_bar)
+static void scrn_draw_win(Win win, Vbuf* vbuf_ptr)
 {
-    // Set cursor positon to window position
-    char window_pos_buffer[10];	int size = snprintf(window_pos_buffer, sizeof(window_pos_buffer), "\x1b[%d;%dH", win.window_coord.y + 1, win.window_coord.x + 1);
-    vbuf_append(vbuf_ptr, window_pos_buffer, size);
+    char buffer[300];	int size = 0;
+    memset(buffer, 0, sizeof(buffer));
+
+    // Set terminal cursor to window position
+    size = snprintf(buffer, sizeof(buffer), "\x1b[%d;%dH", win.window_coord.y + 1, win.window_coord.x + 1);
+    vbuf_append(vbuf_ptr, buffer, size);
 
     // Draw window status bar
-    vbuf_append(vbuf_ptr, "\x1b[7m", 4);
-    for (int i = 0; i < win.ws.ws_col; i++)
-        vbuf_append(vbuf_ptr, " ", 1);
+    if (win.split_type == HORIZONTAL_WINDOW || win.split_type == VERTICAL_WINDOW)
+    {
+        vbuf_append(vbuf_ptr, "\x1b[7m", 4);
 
-    // Draw Window vertical bar if meets condition
-    if (vertical_bar)
-        for (int y = 1; y <= win.ws.ws_row; y++)
-        {
-            char buf[10];	int size = snprintf(buf, sizeof(buf), "\x1b[%d;%dH", win.window_coord.y + y + 1, win.window_coord.x + 1);
-            vbuf_append(vbuf_ptr, buf, size);
+        // Draw window status bar message
+        size = snprintf(buffer, sizeof(buffer), "Height: %d, Width: %d, X: %d, Y: %d", win.ws.ws_row, win.ws.ws_col, win.window_coord.x, win.window_coord.y);
+        vbuf_append(vbuf_ptr, buffer, size);
+        for (int i = 0; i < win.ws.ws_col - size; i++)
             vbuf_append(vbuf_ptr, " ", 1);
-        }
+        vbuf_append(vbuf_ptr, "\x1b[m", 3);
+    
+        if (win.split_type == VERTICAL_WINDOW)
+        {
+            size = snprintf(buffer, sizeof(buffer), "\x1b[%d;%dH", win.window_coord.y + 1, win.window_coord.x + 1);
+            vbuf_append(vbuf_ptr, buffer, size);
 
-    vbuf_append(vbuf_ptr, "\x1b[m", 3);
+            // Draw vertical bar
+            vbuf_append(vbuf_ptr, "\x1b[7m", 4);
+            for (int i = 1; i < win.ws.ws_row - 1; i++)
+            {
+                size = snprintf(buffer, sizeof(buffer), "\x1b[%d;%dH ", win.window_coord.y + (1 + i), win.window_coord.x + 1);
+                vbuf_append(vbuf_ptr, buffer, size);
+            }
+            vbuf_append(vbuf_ptr, "\x1b[m", 3);
+        }
+    }
 }
 
 void scrn_update(Scrn* scrn_ptr)
@@ -83,7 +93,7 @@ void scrn_update(Scrn* scrn_ptr)
 
     // Draw windows
     for (size_t i = 0; i < scrn_ptr->wins.wins_size; i++)
-        scrn_draw_win(scrn_ptr->wins.wins[i], &vbuf, scrn_ptr->wins.wins[i].split_type);
+        scrn_draw_win(scrn_ptr->wins.wins[i], &vbuf);
     scrn_clear_lines(scrn_ptr, &vbuf);
 
     // Position screen cursor
