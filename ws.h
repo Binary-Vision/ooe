@@ -19,7 +19,7 @@ int retIWin_scrnCursor(struct WINS*, const int, const int);
 /*
 * Split the window vertically
 */
-void wsplit_vertical();
+void wsplit_vertical(struct WINS*, const int, const int);
 
 /*
 * Split the window horizontally

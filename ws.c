@@ -29,19 +29,33 @@ int retIWin_scrnCursor(Wins* wins_ptr, const int cursor_y, const int cursor_x)
     return winIndex;
 }
 
-void wsplit_vertical()
+void wsplit_vertical(Wins* wins_ptr, const int cursor_y, const int cursor_x)
 {
     // Get window width and halve it. Then insert a window after that windows position half of its surface width
+    int winIndex = retIWin_scrnCursor(wins_ptr, cursor_y, cursor_x);
+
+    Win win;
+    win.ws.ws_row = wins_ptr->wins[winIndex].ws.ws_row;
+    win.ws.ws_col = round_whole((float)(wins_ptr->wins[winIndex].ws.ws_col));
+    win.split_type = VERTICAL_WINDOW;
+    win.window_coord.y = wins_ptr->wins[winIndex].window_coord.y;
+    win.window_coord.x = round_whole((float)(wins_ptr->wins[winIndex].ws.ws_col / 2)) + wins_ptr->wins[winIndex].window_coord.x;
+    wins_append_sWin(wins_ptr, win);
+
+    wins_ptr->wins[winIndex].ws.ws_col /= 2;
 }
 
 void wsplit_horizontal(Wins* wins_ptr, const int cursor_y, const int cursor_x)
 {
     int winIndex = retIWin_scrnCursor(wins_ptr, cursor_y, cursor_x);
-/*    // Create new window that is half the rows of winIndex
-    Win win = create_win((int)round_whole((float)(wins_ptr->wins[winIndex].ws.ws_row / 2)), wins_ptr->wins[winIndex].ws.ws_col,  wins_ptr->wins[winIndex].window_coord.y + (int)round_whole((float)(wins_ptr->wins[winIndex].window_coord.y / 2)), wins_ptr->wins[winIndex].window_coord.x, 0, 0, HORIZONTAL_WINDOW);
+
+    Win win;
+    win.ws.ws_row = round_whole((float)(wins_ptr->wins[winIndex].ws.ws_row / 2));
+    win.ws.ws_col = wins_ptr->wins[winIndex].ws.ws_col;
+    win.split_type = HORIZONTAL_WINDOW;
+    win.window_coord.y = wins_ptr->wins[winIndex].window_coord.y + round_whole((float)(wins_ptr->wins[winIndex].ws.ws_row / 2));
+    win.window_coord.x = wins_ptr->wins[winIndex].window_coord.x;
 
     wins_ptr->wins[winIndex].ws.ws_row /= 2;
     wins_append_sWin(wins_ptr, win);
-    wins_ptr->wins[wins_ptr->wins_size - 1].split_type = HORIZONTAL_WINDOW;*/
-    wins_ptr->wins[winIndex].ws.ws_row /= 2;
 }

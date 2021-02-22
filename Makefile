@@ -9,4 +9,4 @@ BUILD_CMD = $(CC) $(CC_FILES) -o $(EXEC) $(CC_FLAGS)
 build:
 	$(BUILD_CMD)
 run:
-	make && clear && ./ooe
+	clear && ./ooe
