@@ -71,7 +71,7 @@ static void scrn_draw_win(Win win, Vbuf* vbuf_ptr)
 
             // Draw vertical bar
             vbuf_append(vbuf_ptr, "\x1b[7m", 4);
-            for (int i = 1; i < win.ws.ws_row - 1; i++)
+            for (int i = 1; i < win.ws.ws_row; i++)
             {
                 size = snprintf(buffer, sizeof(buffer), "\x1b[%d;%dH ", win.window_coord.y + (1 + i), win.window_coord.x + 1);
                 vbuf_append(vbuf_ptr, buffer, size);
