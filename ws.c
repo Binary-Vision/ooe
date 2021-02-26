@@ -36,10 +36,10 @@ void wsplit_vertical(Wins* wins_ptr, const int cursor_y, const int cursor_x)
 
     Win win;
     win.ws.ws_row = wins_ptr->wins[winIndex].ws.ws_row;
-    win.ws.ws_col = round_whole((float)(wins_ptr->wins[winIndex].ws.ws_col / 2));
+    win.ws.ws_col = (int)round_whole((float)wins_ptr->wins[winIndex].ws.ws_col / 2);
     win.split_type = VERTICAL_WINDOW;
     win.window_coord.y = wins_ptr->wins[winIndex].window_coord.y;
-    win.window_coord.x = round_whole((float)(wins_ptr->wins[winIndex].ws.ws_col / 2)) + wins_ptr->wins[winIndex].window_coord.x;
+    win.window_coord.x = (wins_ptr->wins[winIndex].ws.ws_col / 2) + wins_ptr->wins[winIndex].window_coord.x;
     wins_append_sWin(wins_ptr, win);
 
     wins_ptr->wins[winIndex].ws.ws_col /= 2;
