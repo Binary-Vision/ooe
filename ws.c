@@ -36,7 +36,7 @@ void wsplit_vertical(Wins* wins_ptr, const int cursor_y, const int cursor_x)
 
     Win win;
     win.ws.ws_row = wins_ptr->wins[winIndex].ws.ws_row;
-    win.ws.ws_col = (int)round_whole((float)wins_ptr->wins[winIndex].ws.ws_col / 2);
+    win.ws.ws_col = round_whole((float)wins_ptr->wins[winIndex].ws.ws_col / 2);
     win.split_type = VERTICAL_WINDOW;
     win.window_coord.y = wins_ptr->wins[winIndex].window_coord.y;
     win.window_coord.x = (wins_ptr->wins[winIndex].ws.ws_col / 2) + wins_ptr->wins[winIndex].window_coord.x;
@@ -50,11 +50,11 @@ void wsplit_horizontal(Wins* wins_ptr, const int cursor_y, const int cursor_x)
     int winIndex = retIWin_scrnCursor(wins_ptr, cursor_y, cursor_x);
 
     Win win;
-    win.ws.ws_row = round_whole((float)(wins_ptr->wins[winIndex].ws.ws_row / 2));
+    win.ws.ws_row = round_whole((float)wins_ptr->wins[winIndex].ws.ws_row / 2);
     //win.ws.ws_row = wins_ptr->wins[winIndex].ws.ws_row / 2;
     win.ws.ws_col = wins_ptr->wins[winIndex].ws.ws_col;
     win.split_type = HORIZONTAL_WINDOW;
-    win.window_coord.y = wins_ptr->wins[winIndex].window_coord.y + round_whole((float)(wins_ptr->wins[winIndex].ws.ws_row / 2));
+    win.window_coord.y = wins_ptr->wins[winIndex].window_coord.y + (wins_ptr->wins[winIndex].ws.ws_row / 2);
     win.window_coord.x = wins_ptr->wins[winIndex].window_coord.x;
 
     wins_ptr->wins[winIndex].ws.ws_row /= 2;
