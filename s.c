@@ -58,9 +58,9 @@ static void scrn_draw_win(Win win, Vbuf* vbuf_ptr)
         vbuf_append(vbuf_ptr, "\x1b[7m", 4);
 
         // Draw window status bar message
-        size = snprintf(buffer, sizeof(buffer), "Height: %d, Width: %d, X: %d, Y: %d", win.ws.ws_row, win.ws.ws_col, win.window_coord.x, win.window_coord.y);
-        vbuf_append(vbuf_ptr, buffer, size);
-        for (int i = 0; i < win.ws.ws_col - size; i++)
+        //size = snprintf(buffer, sizeof(buffer), "Height: %d, Width: %d, X: %d, Y: %d", win.ws.ws_row, win.ws.ws_col, win.window_coord.x, win.window_coord.y);
+        //vbuf_append(vbuf_ptr, buffer, size);
+        for (int i = 0; i < win.ws.ws_col; i++)
             vbuf_append(vbuf_ptr, " ", 1);
         vbuf_append(vbuf_ptr, "\x1b[m", 3);
     

@@ -18,6 +18,9 @@
 #define HORIZONTAL_WINDOW	0
 #define VERTICAL_WINDOW		1
 
+#define WIN_MIN_ROWS		5
+#define WIN_MIN_COLS		12
+
 struct WIN_WS
 {
     int ws_row;
