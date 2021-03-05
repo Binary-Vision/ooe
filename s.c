@@ -9,6 +9,7 @@
 
 #include "types.h"
 #include "tty.h"
+#include "ws.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -60,7 +61,9 @@ static void scrn_draw_win(Win win, Vbuf* vbuf_ptr)
         // Draw window status bar message
         //size = snprintf(buffer, sizeof(buffer), "Height: %d, Width: %d, X: %d, Y: %d", win.ws.ws_row, win.ws.ws_col, win.window_coord.x, win.window_coord.y);
         //vbuf_append(vbuf_ptr, buffer, size);
-        for (int i = 0; i < win.ws.ws_col; i++)
+        char buf[15];	int size = snprintf(buf, sizeof(buf), "X: %d, Y: %d", win.cursor_coord.x, win.cursor_coord.y);
+        vbuf_append(vbuf_ptr, buf, size);
+        for (int i = 0; i < win.ws.ws_col - size; i++)
             vbuf_append(vbuf_ptr, " ", 1);
         vbuf_append(vbuf_ptr, "\x1b[m", 3);
     
@@ -81,6 +84,16 @@ static void scrn_draw_win(Win win, Vbuf* vbuf_ptr)
     }
 }
 
+/*static void drawWin_scrnCursor(Win win, Vbuf* vbuf_ptr)
+{
+    // Position the screen cursor
+    char cursor_position_buf[10];
+    int size = snprintf(cursor_position_buf, sizeof(cursor_position_buf), "\x1b[%d;%dH",
+                                            win.cursor_coord.y + win.window_coord.y + 1,
+                                            win.cursor_coord.x + win.window_coord.x + 1);
+    vbuf_append(vbuf_ptr, cursor_position_buf, size);
+}*/
+
 void scrn_update(Scrn* scrn_ptr)
 {
     Vbuf vbuf = vbuf_init();
@@ -97,11 +110,7 @@ void scrn_update(Scrn* scrn_ptr)
     scrn_clear_lines(scrn_ptr, &vbuf);
 
     // Position screen cursor
-    char cursor_position_buf[10];
-    int size = snprintf(cursor_position_buf, sizeof(cursor_position_buf), "\x1b[%d;%dH",
-                                            scrn_ptr->cursor_coord.y + 1,
-                                            scrn_ptr->cursor_coord.x + 1);
-    vbuf_append(&vbuf, cursor_position_buf, size);
+    display_WinCursor(&vbuf, scrn_ptr->wins.wins[0].window_coord, scrn_ptr->wins.wins[0].cursor_coord, scrn_ptr->cursor_coord);
 
     // Show terminal cursor
     vbuf_append(&vbuf, "\x1b[?25h", 6);

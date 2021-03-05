@@ -10,6 +10,7 @@
 #ifndef _OOE_W_H_
 #define _OOE_W_H_
 
+#include "vb.h"
 #include "defs.h"
 
 #include <stdbool.h>
@@ -41,6 +42,7 @@ struct WINS
     struct WIN*		wins;           // Windows
     size_t              wins_size;      // Amount of screen windows
     size_t              wins_cap;       // Capacity of windows
+    size_t 		winIndex;	// Window Index
 };
 
 /*** Win Routines ***/
@@ -80,5 +82,12 @@ void wins_append_sWin(struct WINS*, struct WIN win);
 * Free Wins
 */
 void wins_free(struct WINS* wins);
+
+/*** Window Cursor Handling ***/
+
+/*
+* Display window cursor coordinates
+*/
+void display_WinCursor(struct VBUF*, struct COORD, struct COORD, struct COORD);
 
 #endif

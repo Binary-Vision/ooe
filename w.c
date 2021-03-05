@@ -11,6 +11,7 @@
 
 #include <stdlib.h>
 #include <memory.h>
+#include <stdio.h>
 
 #define WINS_SAFE_SIZE	3
 
@@ -48,6 +49,7 @@ Wins wins_init()
     wins.wins = malloc(sizeof(Win) * WINS_SAFE_SIZE);
     wins.wins_size = 0;
     wins.wins_cap = WINS_SAFE_SIZE;
+    wins.winIndex = 0;
 
     return wins;
 }
@@ -90,4 +92,14 @@ void wins_free(Wins* wins)
     free(wins->wins);
     wins->wins_size = 0;
     wins->wins_cap = 0;
+}
+
+void display_WinCursor(Vbuf* vbuf_ptr, Coord win_coord, Coord win_cursor_coord, Coord scrn_cursor_coord)
+{
+    scrn_cursor_coord.y = win_coord.y + win_cursor_coord.y;
+    scrn_cursor_coord.x = win_coord.x + win_cursor_coord.x;
+
+    char cursor_buf[10];
+    int size = snprintf(cursor_buf, sizeof(cursor_buf), "\x1b[%d;%dH", scrn_cursor_coord.y + 1, scrn_cursor_coord.x + 1);
+    vbuf_append(vbuf_ptr, cursor_buf, size);
 }

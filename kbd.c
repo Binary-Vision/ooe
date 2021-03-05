@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
-//#include <stdio.h>
 
 #define CTRL_KEY(k)	((k) & 0x1F)
 
@@ -59,7 +58,9 @@ static int kbd_read_key() {
 
 void scrn_move_cursor(Scrn* scrn_ptr, int key)
 {
-    switch (key)
+    Win* win_ptr = &scrn_ptr->wins.wins[scrn_ptr->wins.winIndex];
+
+    /*switch (key)
     {
     case ARROW_UP:
         if (scrn_ptr->cursor_coord.y != 0)
@@ -76,6 +77,26 @@ void scrn_move_cursor(Scrn* scrn_ptr, int key)
     case ARROW_RIGHT:
         if (scrn_ptr->cursor_coord.x != scrn_ptr->scrn_ws.ws_col - 1)
             scrn_ptr->cursor_coord.x++;
+        break;
+    }*/
+
+    switch (key)
+    {
+    case ARROW_UP:
+        if (win_ptr->cursor_coord.y != 0)
+            win_ptr->cursor_coord.y--;
+        break;
+    case ARROW_DOWN:
+        if (win_ptr->cursor_coord.y < win_ptr->ws.ws_row - 1)
+            win_ptr->cursor_coord.y++;
+        break;
+    case ARROW_LEFT:
+        if (win_ptr->cursor_coord.x != 0)
+            win_ptr->cursor_coord.x--;
+        break;
+    case ARROW_RIGHT:
+        if (win_ptr->cursor_coord.x < win_ptr->ws.ws_col - 1)
+            win_ptr->cursor_coord.x++;
         break;
     }
 }
