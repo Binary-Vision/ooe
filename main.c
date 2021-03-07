@@ -28,7 +28,8 @@ void scrn_clean_exit()
 
 int main()
 {
-//    terminal_enable_raw_mode();
+    terminal_enable_raw_mode();
+    write(STDOUT_FILENO, "\x1b[2J", 4);
     Scrn scrn = scrn_empty();
     scrn_clean_ptr = &scrn;
     atexit(scrn_clean_exit);
