@@ -84,16 +84,6 @@ static void scrn_draw_win(Win win, Vbuf* vbuf_ptr)
     }
 }
 
-/*static void drawWin_scrnCursor(Win win, Vbuf* vbuf_ptr)
-{
-    // Position the screen cursor
-    char cursor_position_buf[10];
-    int size = snprintf(cursor_position_buf, sizeof(cursor_position_buf), "\x1b[%d;%dH",
-                                            win.cursor_coord.y + win.window_coord.y + 1,
-                                            win.cursor_coord.x + win.window_coord.x + 1);
-    vbuf_append(vbuf_ptr, cursor_position_buf, size);
-}*/
-
 void scrn_update(Scrn* scrn_ptr)
 {
     Vbuf vbuf = vbuf_init();

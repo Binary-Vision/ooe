@@ -123,6 +123,9 @@ void editor_kbd_proc_key(Scrn* scrn_ptr)
         if (terminal_get_cursor_position(&y, &x) == -1)
             error("terminal_get_cursor_position");
         wsplit_horizontal(&scrn_ptr->wins, y, x);
+        /*int winIndex = retIWin_scrnCursor(&scrn_ptr->wins, y, x);
+        size = snprintf(buf, sizeof(buf), "\x1b[3;3H%d", winIndex);
+        write(STDOUT_FILENO, buf, size);*/
         break;
     // Split window vertically
     case CTRL_KEY('P'):
